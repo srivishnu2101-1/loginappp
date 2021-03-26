@@ -63,15 +63,15 @@ public class LoginActivity extends AppCompatActivity {
                     if (cursor.getCount() > 0) {
                         cursor.moveToFirst();
 
-                        Toast.makeText(LoginActivity.this, "Logged In succesfully!",
+                        Toast.makeText(LoginActivity.this, "Logged In successfully!",
                                 Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("email", email.getText());
                         startActivity(intent);
                         finish();
                     } else {
                         Toast.makeText(LoginActivity.this, "Invalid username or password!",
                                 Toast.LENGTH_SHORT).show();
-
                     }
                 }
             }
