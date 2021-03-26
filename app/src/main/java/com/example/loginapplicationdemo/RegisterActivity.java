@@ -17,21 +17,19 @@ public class RegisterActivity extends AppCompatActivity {
     private Button signInBtn;
     private EditText userName;
     private EditText password;
-    private EditText email;
     private EditText confirmPassword;
     private CheckBox showPassword;
-    private DataBaseHelper dataBaseHelper;
+    private UserRepository userRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        dataBaseHelper = new DataBaseHelper(this);
+        userRepository = UserRepository.UserRepositoryInstance();
 
         signInBtn = findViewById(R.id.signInButton);
         userName = findViewById(R.id.registerUsername);
         password = findViewById(R.id.registerPassword);
-        email = findViewById(R.id.registerEmailAddress);
         confirmPassword = findViewById(R.id.registerConfirmPassword);
         showPassword = findViewById(R.id.registerShowPasswordCheckBox);
 
@@ -39,7 +37,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (userName.getText().toString().equals("") ||
-                        email.getText().toString().equals("") ||
                         password.getText().toString().equals("") || confirmPassword.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Please Enter Your Details", Toast.LENGTH_LONG).show();
                     return;
@@ -50,13 +47,13 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                dataBaseHelper.addUser(email.getText().toString(),
-                        userName.getText().toString(), password.getText().toString());
+                userRepository.addUser(new User(userName.getText().toString(), password.getText().toString()));
 
                 Toast.makeText(RegisterActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

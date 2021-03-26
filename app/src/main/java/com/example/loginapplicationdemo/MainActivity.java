@@ -21,9 +21,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         welcomeText = findViewById(R.id.welcomeText);
-        String email = getIntent().getStringExtra("email");
+        logout = findViewById(R.id.logoutButton);
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("email");
         if (email != null) {
-            welcomeText.setText(email);
+            welcomeText.setText("Welcome  " + email);
         }
 
         logout.setOnClickListener(new View.OnClickListener() {
